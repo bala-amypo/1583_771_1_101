@@ -2,57 +2,40 @@ package com.example.demo.model;
 
 import java.time.LocalDateTime;
 
-public class StockRecord {
+public class Warehouse {
     private long id;
-    private String product;
-    private String warehouse;
-    private int currentQuantity;
-    private int reorderThreshold;
-    private LocalDateTime lastUpdated;
-    public StockRecord(long id, String product, String warehouse, int currentQuantity, int reorderThreshold,
-            LocalDateTime lastUpdated) {
+    private String warehouseName;
+    private String location;
+    private LocalDateTime createdAt;
+    public Warehouse(long id, String warehouseName, String location, LocalDateTime createdAt) {
         this.id = id;
-        this.product = product;
-        this.warehouse = warehouse;
-        this.currentQuantity = currentQuantity;
-        this.reorderThreshold = reorderThreshold;
-        this.lastUpdated = lastUpdated;
+        this.warehouseName = warehouseName;
+        this.location = location;
+        this.createdAt = createdAt;
     }
     public long getId() {
         return id;
     }
-    public String getProduct() {
-        return product;
+    public String getWarehouseName() {
+        return warehouseName;
     }
-    public String getWarehouse() {
-        return warehouse;
+    public String getLocation() {
+        return location;
     }
-    public int getCurrentQuantity() {
-        return currentQuantity;
-    }
-    public int getReorderThreshold() {
-        return reorderThreshold;
-    }
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
     public void setId(long id) {
         this.id = id;
     }
-    public void setProduct(String product) {
-        this.product = product;
+    public void setWarehouseName(String warehouseName) {
+        this.warehouseName = warehouseName;
     }
-    public void setWarehouse(String warehouse) {
-        this.warehouse = warehouse;
+    public void setLocation(String location) {
+        this.location = location;
     }
-    public void setCurrentQuantity(int currentQuantity) {
-        this.currentQuantity = currentQuantity;
-    }
-    public void setReorderThreshold(int reorderThreshold) {
-        this.reorderThreshold = reorderThreshold;
-    }
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
     
 }

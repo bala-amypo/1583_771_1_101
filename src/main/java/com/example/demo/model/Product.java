@@ -5,12 +5,14 @@ import java.time.LocalDateTime;
 public class Product {
     private long id;
     private String productName;
-    private String location;
+    private String sku;
+    private String category;
     private LocalDateTime createdAt;
-    public Product(long id, String productName, String location, LocalDateTime createdAt) {
+    public Product(long id, String productName, String sku, String category, LocalDateTime createdAt) {
         this.id = id;
         this.productName = productName;
-        this.location = location;
+        this.sku = sku;
+        this.category = category;
         this.createdAt = createdAt;
     }
     public long getId() {
@@ -19,8 +21,11 @@ public class Product {
     public String getProductName() {
         return productName;
     }
-    public String getLocation() {
-        return location;
+    public String getSku() {
+        return sku;
+    }
+    public String getCategory() {
+        return category;
     }
     public LocalDateTime getCreatedAt() {
         return createdAt;
@@ -31,11 +36,14 @@ public class Product {
     public void setProductName(String productName) {
         this.productName = productName;
     }
-    public void setLocation(String location) {
-        this.location = location;
+    public void setSku(String sku) {
+        this.sku = sku;
+    }
+    public void setCategory(String category) {
+        this.category = category;
     }
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    
+   
 }
