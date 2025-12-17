@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public interface ProductServiceImpl implements ProductService {
 
     private final ProductRepository repo;
 
@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
         return repo.findAll();
     }
 
-    // OPTIONAL (if tests ask by id)
+    @Override
     public Product getProductById(Long id) {
         return repo.findById(id)
                 .orElseThrow(() ->
