@@ -1,11 +1,15 @@
-// package com.example.demo.service;
+package com.example.demo.service;
 
-// import java.time.LocalDate;
-// import java.util.List;
+import java.time.LocalDate;
+import java.util.List;
 
-// import com.example.demo.model.PredictionRule;
+import com.example.demo.model.PredictionRule;
 
-// public interface PredictionService {
-//     LocalDate predicationRestockDate(Long stockRecordId);
-//     List<PredictionRule> getAllRules();
-// }
+public interface PredictionService {
+    LocalDate predicationRestockDate(Long stockRecordId);
+    package com.example.demo.service;
+
+
+
+    List<PredictionRule> getAllRules();
+}
