@@ -7,9 +7,5 @@ import com.example.demo.model.PredictionRule;
 
 public interface PredictionService {
     LocalDate predicationRestockDate(Long stockRecordId);
-    package com.example.demo.service;
-
-
-
     List<PredictionRule> getAllRules();
 }
