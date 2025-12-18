@@ -1,15 +1,15 @@
 package com.example.demo.controller;
 
-import com.example.demo.service.PredictionService;
+import com.example.demo.service.PredictionRuleService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/predict")
-public class PredictionController {
+public class PredictionRuleController {
 
-    private final PredictionService service;
+    private final PredictionRuleService service;
 
-    public PredictionController(PredictionService service) {
+    public PredictionRuleController(PredictionRuleService service) {
         this.service = service;
     }
 

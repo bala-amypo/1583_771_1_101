@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/consumptions")
-public class ConsumptionController {
+public class ConsumptionLogController {
 
-    private final ConsumptionService service;
+    private final ConsumptionLogService service;
 
-    public ConsumptionController(ConsumptionService service) {
+    public ConsumptionLogController(ConsumptionLogService service) {
         this.service = service;
     }
 
