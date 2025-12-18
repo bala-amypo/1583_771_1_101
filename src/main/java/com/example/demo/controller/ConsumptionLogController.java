@@ -5,7 +5,7 @@ import com.example.demo.service.ConsumptionLogService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/consumptions")
+@RequestMapping("/consumption")
 public class ConsumptionLogController {
 
     private final ConsumptionLogService service;
@@ -15,8 +15,8 @@ public class ConsumptionLogController {
     }
 
     @PostMapping
-    public ConsumptionLog addConsumption(
-            @RequestBody ConsumptionLog log) {
-        return service.addConsumption(log);
+    public String addConsumption(@RequestBody ConsumptionLog consumptionLog) {
+        service.addConsumption(consumptionLog);  
+        return "Consumption added successfully";
     }
 }

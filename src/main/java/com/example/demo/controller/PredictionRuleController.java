@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.service.PredictionRuleService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @RestController
-@RequestMapping("/api/predict")
+@RequestMapping("/predict")
 public class PredictionRuleController {
 
     private final PredictionRuleService service;
@@ -13,8 +15,8 @@ public class PredictionRuleController {
         this.service = service;
     }
 
-    @GetMapping("/{stockRecordId}")
-    public String predict(@PathVariable Long stockRecordId) {
-        return service.predictionRestockDate(stockRecordId);
+    @GetMapping("/{productId}")
+    public LocalDate getRestockDate(@PathVariable Long productId) {
+        return service.predictionRestockDate(productId);
     }
 }
