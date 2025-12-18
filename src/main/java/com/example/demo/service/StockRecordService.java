@@ -1,4 +1,4 @@
-cat > src/main/java/com/example/demo/service/StockRecordService.java << 'EOF'
+
 package com.example.demo.service;
 
 import com.example.demo.model.StockRecord;

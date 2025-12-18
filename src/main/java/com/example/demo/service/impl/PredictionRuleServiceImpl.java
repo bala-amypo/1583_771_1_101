@@ -18,7 +18,7 @@ public class PredictionServiceImpl implements PredictionService {
     
     @Override
     public LocalDate predicationRestockDate(Long stockId) {
-        // Simple implementation for portal
+        // Simple implementation
         return LocalDate.now().plusDays(7);
     }
     
