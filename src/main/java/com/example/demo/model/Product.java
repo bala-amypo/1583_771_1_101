@@ -2,12 +2,15 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Table(name = "products")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Product {
 
@@ -21,7 +24,9 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String sku;
 
-    private String category;
+    private int quantity;
+
+    private double price;
 
     private LocalDateTime createdAt;
 }
