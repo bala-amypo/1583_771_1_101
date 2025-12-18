@@ -1,51 +1,51 @@
 package com.example.demo.service.impl;
 
-
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.stereotype.Service;
 
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    private final ProductRepository productRepository;
 
-private final ProductRepository repo;
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
+    @Override
+    public Product createProduct(Product product) {
 
-public ProductServiceImpl(ProductRepository repo) {
-this.repo = repo;
-}
+        if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
+            throw new IllegalArgumentException("productName must not be blank");
+        }
 
+        if (product.getSku() == null || product.getSku().trim().isEmpty()) {
+            throw new IllegalArgumentException("sku must not be blank");
+        }
 
-public Product createProduct(Product p) {
-if (p.getProductName() == null || p.getProductName().isBlank())
-throw new IllegalArgumentException("productName cannot be blank");
+        productRepository.findBySku(product.getSku())
+                .ifPresent(p -> {
+                    throw new IllegalArgumentException("SKU already exists");
+                });
 
+        product.setCreatedAt(LocalDateTime.now());
+        return productRepository.save(product);
+    }
 
-repo.findBySku(p.getSku()).ifPresent(x -> {
-throw new IllegalArgumentException("SKU already exists");
-});
+    @Override
+    public Product getProduct(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    }
 
-
-p.setCreatedAt(LocalDateTime.now());
-return repo.save(p);
-}
-
-
-public Product getProduct(Long id) {
-return repo.findById(id)
-.orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-}
-
-
-public List<Product> getAllProducts() {
-return repo.findAll();
-}
+    @Override
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
 }
