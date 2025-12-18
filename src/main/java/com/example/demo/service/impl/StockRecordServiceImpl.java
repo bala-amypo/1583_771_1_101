@@ -26,7 +26,7 @@ public class StockRecordServiceImpl implements StockRecordService {
     }
     
     @Override
-    public List<StockRecord> getStockRecordsBy_product(Long productId) {
-        return stockRecordRepository.findByProductId(productId);
+    public List<StockRecord> getRecordsByWarehouse(Long warehouseId) {
+        return stockRecordRepository.findByWarehouseId(warehouseId);
     }
 }
