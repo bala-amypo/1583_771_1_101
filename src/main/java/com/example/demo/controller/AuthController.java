@@ -35,32 +35,23 @@ public class AuthController {
     }
 
     
-    @PostMapping("/register")
-    public void register(@RequestBody UserRegisterDto dto) {
-
-        User user = User.builder()
-                .name(dto.getName())
-                .email(dto.getEmail())
-                .password(passwordEncoder.encode(dto.getPassword()))
-                .roles(Set.of(Role.USER))
-                .createdAt(LocalDateTime.now())
-                .build();
-
-        userRepository.save(user);
-    }
-
   
-    @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
-
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-
-        String token = jwtProvider.generateToken(request.getEmail());
-        return new AuthResponse(token);
+    @PostMapping("/register")
+    public ResponseEntity<AuthResponse> register(@RequestBody UserRegisterDto dto) {
+        // Check if user already exists
+        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+            return ResponseEntity.badRequest().build();
+        }
+        
+        // Create user without builder pattern
+        User user = new User();
+        user.setName(dto.getName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setRoles(Set.of("USER")); // Use string role
+        
+        userRepository.save(user);
+        
+        String token = jwtProvider.generateToken(user.getEmail());
+        return ResponseEntity.ok(new AuthResponse(token));
     }
-}
