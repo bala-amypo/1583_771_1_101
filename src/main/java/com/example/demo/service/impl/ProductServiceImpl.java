@@ -20,32 +20,38 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(Product product) {
-
-        if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {
-            throw new IllegalArgumentException("productName must not be blank");
-        }
-
-        if (product.getSku() == null || product.getSku().trim().isEmpty()) {
-            throw new IllegalArgumentException("sku must not be blank");
-        }
-
-        productRepository.findBySku(product.getSku())
-                .ifPresent(p -> {
-                    throw new IllegalArgumentException("SKU already exists");
-                });
-
         product.setCreatedAt(LocalDateTime.now());
         return productRepository.save(product);
     }
 
     @Override
-    public Product getProduct(Long id) {
+    public Product updateProduct(Long id, Product product) {
+        Product existing = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
+
+        existing.setProductName(product.getProductName());
+        existing.setSku(product.getSku());
+        existing.setQuantity(product.getQuantity());
+        existing.setPrice(product.getPrice());
+
+        return productRepository.save(existing);
+    }
+
+    @Override
+    public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
     }
 
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
+        productRepository.delete(product);
     }
 }
