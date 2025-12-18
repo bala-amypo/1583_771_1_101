@@ -1,30 +1,15 @@
-
+# Create a simplified User.java without JPA annotations
+cat > src/main/java/com/example/demo/model/User.java << 'EOF'
 package com.example.demo.model;
 
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "users")
 public class User {
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
-    @Column(nullable = false)
     private String name;
-    
-    @Column(nullable = false, unique = true)
     private String email;
-    
-    @Column(nullable = false)
     private String password;
-    
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
     private Set<String> roles = new HashSet<>();
     
     // Constructors
@@ -52,7 +37,7 @@ public class User {
     public Set<String> getRoles() { return roles; }
     public void setRoles(Set<String> roles) { this.roles = roles; }
     
-    // Builder pattern (if you want it)
+    // Builder pattern
     public static UserBuilder builder() {
         return new UserBuilder();
     }
