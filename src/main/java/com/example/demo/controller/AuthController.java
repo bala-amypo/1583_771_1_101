@@ -33,10 +33,10 @@ public class AuthController {
     
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody UserRegisterDto dto) {
-        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().build();
-        }
-        
+        if (existingUser.isPresent()) {
+    return ResponseEntity.badRequest().body("Email already exists");
+}
+
         User user = new User();
         user.setName(dto.getName());
         user.setEmail(dto.getEmail());
