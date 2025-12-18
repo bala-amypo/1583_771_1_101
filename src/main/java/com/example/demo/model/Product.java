@@ -1,37 +1,37 @@
 package com.example.demo.model;
 
+
 import jakarta.persistence.*;
+import lombok.*;
+
+
 import java.time.LocalDateTime;
 
+
 @Entity
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = "sku")
-})
+@Table(name = "products", uniqueConstraints = @UniqueConstraint(columnNames = "sku"))
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String productName;
 
-    @Column(unique = true)
-    private String sku;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
 
-    private String category;
-    private LocalDateTime createdAt;
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+@Column(nullable = false)
+private String productName;
 
-    public String getProductName() { return productName; }
-    public void setProductName(String productName) { this.productName = productName; }
 
-    public String getSku() { return sku; }
-    public void setSku(String sku) { this.sku = sku; }
+@Column(nullable = false, unique = true)
+private String sku;
 
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+private String category;
+
+
+private LocalDateTime createdAt;
 }
