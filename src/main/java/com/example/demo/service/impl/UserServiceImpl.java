@@ -15,10 +15,12 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
+   cat >> src/main/java/com/example/demo/service/impl/UserServiceImpl.java << 'EOF'
+
     @Override
-    public User getUserByEmail(String email) {
+    public User getByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("User", 0L));
+                .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
 }

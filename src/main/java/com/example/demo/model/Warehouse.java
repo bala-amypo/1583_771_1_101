@@ -25,4 +25,7 @@ public class Warehouse {
     private String location;
 
     private LocalDateTime createdAt;
+     public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

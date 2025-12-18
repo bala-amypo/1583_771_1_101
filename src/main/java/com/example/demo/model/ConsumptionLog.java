@@ -23,4 +23,19 @@ public class ConsumptionLog {
     private Integer consumedQuantity;
 
     private LocalDate consumedDate;
+    public LocalDateTime getConsumedDate() {
+        return consumedDate;
+    }
+    
+    public void setConsumedDate(LocalDateTime consumedDate) {
+        this.consumedDate = consumedDate;
+    }
+    
+    public StockRecord getStockRecord() {
+        return stockRecord;
+    }
+    
+    public void setStockRecord(StockRecord stockRecord) {
+        this.stockRecord = stockRecord;
+    }
 }

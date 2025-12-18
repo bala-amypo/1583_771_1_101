@@ -34,14 +34,10 @@ public class StockRecordServiceImpl implements StockRecordService {
         return repo.save(stockRecord);
     }
 
-    @Override
-    public List<StockRecord> getAllStockRecords() {
-        return repo.findAll();
-    }
+    cat >> src/main/java/com/example/demo/service/impl/StockRecordServiceImpl.java << 'EOF'
 
-    public StockRecord getStockRecordById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("StockRecord", id));
+    @Override
+    public List<StockRecord> getRecordsByWarehouse(Long warehouseId) {
+        return stockRecordRepository.findByWarehouseId(warehouseId);
     }
 }

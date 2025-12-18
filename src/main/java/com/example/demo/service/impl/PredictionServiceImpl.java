@@ -19,24 +19,8 @@ public class PredictionServiceImpl implements PredictionService {
         this.consumptionRepo = consumptionRepo;
     }
 
-    @Override
-    public String predictRestock(Long stockRecordId) {
-
-        StockRecord stock = stockRepo.findById(stockRecordId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "StockRecord", stockRecordId));
-
-        int totalConsumed =
-                consumptionRepo.sumConsumedQuantityByStockRecord(stock);
-
-        int remaining =
-                stock.getCurrentQuantity() - totalConsumed;
-
-        if (remaining <= stock.getReorderThreshold()) {
-            return "Restock Recommended";
-        }
-
-        return "Stock Sufficient";
+   @Override
+    public List<PredictionRule> getAllRules() {
+        return predictionRuleRepository.findAll();
     }
 }
