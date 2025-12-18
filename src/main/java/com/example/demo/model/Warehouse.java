@@ -1,28 +1,28 @@
-// package com.example.demo.model;
+package com.example.demo.model;
 
-// import jakarta.persistence.*;
-// import lombok.*;
+import jakarta.persistence.*;
+import lombok.*;
 
-// import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
-// @Entity
-// @Getter
-// @Setter
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// @Table(uniqueConstraints = {
-//         @UniqueConstraint(columnNames = "warehouseName")
-// })
-// public class Warehouse {
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "warehouseName")
+})
+public class Warehouse {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     private String warehouseName;
+    private String warehouseName;
 
-//     private String location;
+    private String location;
 
-//     private LocalDateTime createdAt;
-// }
+    private LocalDateTime createdAt;
+}

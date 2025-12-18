@@ -1,32 +1,32 @@
-// package com.example.demo.model;
+package com.example.demo.model;
 
-// import jakarta.persistence.*;
-// import lombok.*;
+import jakarta.persistence.*;
+import lombok.*;
 
-// import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
-// @Entity
-// @Getter
-// @Setter
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// @Table(uniqueConstraints = {
-//         @UniqueConstraint(columnNames = "ruleName")
-// })
-// public class PredictionRule {
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = "ruleName")
+})
+public class PredictionRule {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     private String ruleName;
+    private String ruleName;
 
-//     private Integer averageDaysWindow;
+    private Integer averageDaysWindow;
 
-//     private Integer minDailyUsage;
+    private Integer minDailyUsage;
 
-//     private Integer maxDailyUsage;
+    private Integer maxDailyUsage;
 
-//     private LocalDateTime createdAt;
-// }
+    private LocalDateTime createdAt;
+}

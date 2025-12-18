@@ -1,10 +1,10 @@
-// package com.example.demo.dto;
+package com.example.demo.dto;
 
-// import lombok.AllArgsConstructor;
-// import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-// @Getter
-// @AllArgsConstructor
-// public class AuthResponse {
-//     private String token;
-// }
+@Getter
+@AllArgsConstructor
+public class AuthResponse {
+    private String token;
+}

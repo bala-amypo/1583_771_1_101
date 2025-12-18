@@ -1,34 +1,34 @@
-// package com.example.demo.model;
+package com.example.demo.model;
 
-// import jakarta.persistence.*;
-// import lombok.*;
+import jakarta.persistence.*;
+import lombok.*;
 
-// import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
-// @Entity
-// @Getter
-// @Setter
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// @Table(uniqueConstraints = {
-//         @UniqueConstraint(columnNames = {"product_id", "warehouse_id"})
-// })
-// public class StockRecord {
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"product_id", "warehouse_id"})
+})
+public class StockRecord {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     @ManyToOne
-//     private Product product;
+    @ManyToOne
+    private Product product;
 
-//     @ManyToOne
-//     private Warehouse warehouse;
+    @ManyToOne
+    private Warehouse warehouse;
 
-//     private Integer currentQuantity;
+    private Integer currentQuantity;
 
-//     private Integer reorderThreshold;
+    private Integer reorderThreshold;
 
-//     private LocalDateTime lastUpdated;
-// }
+    private LocalDateTime lastUpdated;
+}

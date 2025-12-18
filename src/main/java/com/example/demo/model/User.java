@@ -1,34 +1,34 @@
-// package com.example.demo.model;
+package com.example.demo.model;
 
-// import jakarta.persistence.*;
-// import lombok.*;
+import jakarta.persistence.*;
+import lombok.*;
 
-// import java.time.LocalDateTime;
-// import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.Set;
 
-// @Entity
-// @Getter
-// @Setter
-// @NoArgsConstructor
-// @AllArgsConstructor
-// @Builder
-// @Table(name = "users")
-// public class User {
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@Table(name = "users")
+public class User {
 
-//     @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-//     private String name;
+    private String name;
 
-//     @Column(unique = true)
-//     private String email;
+    @Column(unique = true)
+    private String email;
 
-//     private String password;
+    private String password;
 
-//     @ElementCollection(fetch = FetchType.EAGER)
-//     @Enumerated(EnumType.STRING)
-//     private Set<Role> roles;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
-//     private LocalDateTime createdAt;
-// }
+    private LocalDateTime createdAt;
+}
