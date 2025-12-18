@@ -1,42 +1,43 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.time.LocalDateTime;   // ⭐ THIS LINE IS MANDATORY
 
-
-import java.time.LocalDate;
-
-@Entity
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 public class ConsumptionLog {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long productId;
+    private int quantity;
+    private LocalDateTime consumedAt;
 
-    @ManyToOne
-    private StockRecord stockRecord;
+    public Long getId() {
+        return id;
+    }
 
-    private Integer consumedQuantity;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    private LocalDate consumedDate;
-    public LocalDateTime getConsumedDate() {
-        return consumedDate;
+    public Long getProductId() {
+        return productId;
     }
-    
-    public void setConsumedDate(LocalDateTime consumedDate) {
-        this.consumedDate = consumedDate;
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
-    
-    public StockRecord getStockRecord() {
-        return stockRecord;
+
+    public int getQuantity() {
+        return quantity;
     }
-    
-    public void setStockRecord(StockRecord stockRecord) {
-        this.stockRecord = stockRecord;
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public LocalDateTime getConsumedAt() {
+        return consumedAt;
+    }
+
+    public void setConsumedAt(LocalDateTime consumedAt) {
+        this.consumedAt = consumedAt;
     }
 }
