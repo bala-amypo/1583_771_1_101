@@ -20,27 +20,17 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(Product product) {
+        if (product.getProductName() == null || product.getProductName().isBlank()) {
+            throw new IllegalArgumentException("Product name cannot be empty");
+        }
         product.setCreatedAt(LocalDateTime.now());
         return productRepository.save(product);
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
-        Product existing = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
-
-        existing.setProductName(product.getProductName());
-        existing.setSku(product.getSku());
-        existing.setQuantity(product.getQuantity());
-        existing.setPrice(product.getPrice());
-
-        return productRepository.save(existing);
-    }
-
-    @Override
-    public Product getProductById(Long id) {
+    public Product getProduct(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
 
     @Override
@@ -51,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProduct(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
         productRepository.delete(product);
     }
 }
