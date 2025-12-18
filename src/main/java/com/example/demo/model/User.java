@@ -1,5 +1,4 @@
-# Create a simplified User.java without JPA annotations
-cat > src/main/java/com/example/demo/model/User.java << 'EOF'
+
 package com.example.demo.model;
 
 import java.util.HashSet;

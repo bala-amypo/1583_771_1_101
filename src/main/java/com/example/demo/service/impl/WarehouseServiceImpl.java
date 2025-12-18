@@ -1,38 +1,32 @@
+
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Warehouse;
 import com.example.demo.repository.WarehouseRepository;
 import com.example.demo.service.WarehouseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class WarehouseServiceImpl implements WarehouseService {
-
-    private final WarehouseRepository repo;
-
-    public WarehouseServiceImpl(WarehouseRepository repo) {
-        this.repo = repo;
-    }
-
+    
+    @Autowired
+    private WarehouseRepository warehouseRepository;
+    
     @Override
     public Warehouse createWarehouse(Warehouse warehouse) {
-        warehouse.setCreatedAt(LocalDateTime.now());
-        return repo.save(warehouse);
+        return warehouseRepository.save(warehouse);
     }
-
+    
     @Override
     public List<Warehouse> getAllWarehouses() {
-        return repo.findAll();
+        return warehouseRepository.findAll();
     }
-
-    // OPTIONAL
-    public Warehouse getWarehouseById(Long id) {
-        return repo.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Warehouse", id));
+    
+    @Override
+    public Warehouse gethouse(Long id) {
+        return warehouseRepository.findById(id).orElse(null);
     }
 }

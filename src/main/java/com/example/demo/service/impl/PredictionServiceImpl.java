@@ -6,6 +6,8 @@ import com.example.demo.repository.ConsumptionLogRepository;
 import com.example.demo.repository.StockRecordRepository;
 import com.example.demo.service.PredictionService;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class PredictionServiceImpl implements PredictionService {
@@ -19,8 +21,13 @@ public class PredictionServiceImpl implements PredictionService {
         this.consumptionRepo = consumptionRepo;
     }
 
-   @Override
+  @Override
+    public LocalDate predicationRestockDate(Long stockId) {
+    
+        return LocalDate.now().plusDays(7);
+    }
+    
+    @Override
     public List<PredictionRule> getAllRules() {
         return predictionRuleRepository.findAll();
     }
-}
