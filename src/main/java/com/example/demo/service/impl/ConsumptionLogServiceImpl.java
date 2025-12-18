@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class ConsumptionServiceImpl implements ConsumptionService {
+public class ConsumptionLogServiceImpl implements ConsumptionLogService {
     
     @Autowired
     private ConsumptionLogRepository consumptionLogRepository;
@@ -24,18 +24,18 @@ public class ConsumptionServiceImpl implements ConsumptionService {
     
     @Override
     public ConsumptionLog addConsumption(ConsumptionLog log) {
-        // Check if consumption date is valid
+        
         if (log.getConsumedDate().isAfter(LocalDateTime.now())) {
             throw new InvalidConsumptionDateException("Consumption date cannot be in the future");
         }
         
-        // Check if stock record exists
+       
         StockRecord stockRecord = log.getStockRecord();
         if (stockRecord == null || stockRecord.getId() == null) {
             throw new ResourceNotFoundException("Stock record not found");
         }
         
-        // Save the consumption log
+        
         return consumptionLogRepository.save(log);
     }
 }

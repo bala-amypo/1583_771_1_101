@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import com.example.demo.model.PredictionRule;
 
-public interface PredictionService {
+public interface PredictionRuleService {
     LocalDate predicationRestockDate(Long stockId);
     List<PredictionRule> getAllRules();
 }

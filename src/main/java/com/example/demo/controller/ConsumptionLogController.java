@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ConsumptionLog;
-import com.example.demo.service.ConsumptionService;
+import com.example.demo.service.ConsumptionLogService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

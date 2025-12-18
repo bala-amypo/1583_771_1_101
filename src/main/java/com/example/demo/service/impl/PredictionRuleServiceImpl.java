@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class PredictionServiceImpl implements PredictionService {
+public class PredictionRuleServiceImpl implements PredictionRuleService {
     
     @Autowired
     private PredictionRuleRepository predictionRuleRepository;
