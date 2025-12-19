@@ -22,10 +22,11 @@ this.service = service;
 }
 
 
-@PostMapping
-public Product create(@RequestBody Product p) {
-return service.createProduct(p);
+@PostMapping("/create")
+public Product create(@RequestBody Product product) {
+    return productService.createProduct(product);
 }
+
 
 
 @GetMapping
