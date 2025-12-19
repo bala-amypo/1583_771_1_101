@@ -1,12 +1,14 @@
-package com.example.demo.config;
+package com.example.demo.security;
 
-import com.example.demo.security.CustomUserDetailsService;
+import com.example.demo.config.JwtProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -17,10 +19,10 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
-    private final CustomUserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(JwtProvider jwtProvider,
-                                   CustomUserDetailsService userDetailsService) {
+                                   UserDetailsService userDetailsService) {
         this.jwtProvider = jwtProvider;
         this.userDetailsService = userDetailsService;
     }
@@ -37,15 +39,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String token = header.substring(7);
 
             if (jwtProvider.validateToken(token)) {
-                String email = jwtProvider.getEmailFromToken(token);
-
-                var userDetails =
-                        userDetailsService.loadUserByUsername(email);
+                String username = jwtProvider.getUsernameFromToken(token);
+                UserDetails userDetails =
+                        userDetailsService.loadUserByUsername(username);
 
                 UsernamePasswordAuthenticationToken auth =
                         new UsernamePasswordAuthenticationToken(
-                                userDetails,
-                                null,
+                                userDetails, null,
                                 userDetails.getAuthorities());
 
                 auth.setDetails(
@@ -56,7 +56,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         .setAuthentication(auth);
             }
         }
-
         filterChain.doFilter(request, response);
     }
 }
