@@ -1,14 +1,9 @@
-@RestController
-@RequestMapping("/auth")
-public class AuthController {
+package com.example.demo.controller;
 
-    private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 
-    public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    // your endpoints
-}
+// import your service class
+import com.example.demo.service.UserService;
