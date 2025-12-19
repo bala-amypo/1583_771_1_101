@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 @Table(name = "consumption_log")
 public class ConsumptionLog {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
     private Long productId;
     private int quantity;
