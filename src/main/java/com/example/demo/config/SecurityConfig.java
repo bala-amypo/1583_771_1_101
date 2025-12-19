@@ -1,6 +1,7 @@
 package com.example.demo.config;
 
 import com.example.demo.security.JwtAuthenticationEntryPoint;
+import com.example.demo.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,21 +26,28 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(csrf -> csrf.disable())
-                .exceptionHandling(e ->
-                        e.authenticationEntryPoint(entryPoint))
-                .sessionManagement(s ->
-                        s.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**")
-                        .permitAll()
-                        .anyRequest().authenticated());
+        http
+            .csrf(csrf -> csrf.disable())
+            .exceptionHandling(e -> e.authenticationEntryPoint(entryPoint))
+            .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> auth
+                // ✅ Swagger FULL access
+                .requestMatchers(
+                    "/swagger-ui/**",
+                    "/v3/api-docs/**",
+                    "/swagger-ui.html"
+                ).permitAll()
+
+                // ✅ TEMP: allow product APIs
+                .requestMatchers("/api/products/**").permitAll()
+
+                // auth APIs
+                .requestMatchers("/auth/**").permitAll()
+
+                .anyRequest().authenticated()
+            );
 
         http.addFilterBefore(jwtFilter,
                 UsernamePasswordAuthenticationFilter.class);
@@ -54,8 +62,8 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration config)
-            throws Exception {
+            AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }
+`
