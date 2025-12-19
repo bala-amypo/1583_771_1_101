@@ -1,9 +1,11 @@
 package com.example.demo.model;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;   // ⭐ THIS LINE IS MANDATORY
-
+@Entity
+@Table(name = "consumption_log")
 public class ConsumptionLog {
-
+    @Id
     private Long id;
     private Long productId;
     private int quantity;
