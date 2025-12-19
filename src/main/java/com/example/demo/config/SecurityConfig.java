@@ -14,7 +14,7 @@ public class SecurityConfig {
                 .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated() 
             .and()
-            .httpBasic(); // enable basic auth if needed
+            .httpBasic(); 
         return http.build();
     }
 }
