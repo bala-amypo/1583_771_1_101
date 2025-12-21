@@ -6,71 +6,39 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "stock_records")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"product_id", "warehouse_id"})
-})
 public class StockRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // MANY stock records can belong to ONE product
     @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
+    // MANY stock records can belong to ONE warehouse
     @ManyToOne
+    @JoinColumn(name = "warehouse_id", nullable = false)
     private Warehouse warehouse;
 
-    private Integer currentQuantity;
+    @Column(nullable = false)
+    private int currentQuantity;
 
-    private Integer reorderThreshold;
+    @Column(nullable = false)
+    private int reorderThreshold;
 
     private LocalDateTime lastUpdated;
-    public Product getProduct() {
-        return product;
-    }
-    
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-    
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-    
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-    
-    public Integer getCurrentQuantity() {
-        return currentQuantity;
-    }
-    
-    public void setCurrentQuantity(Integer currentQuantity) {
-        this.currentQuantity = currentQuantity;
-    }
-    
-    public Integer getReorderThreshold() {
-        return reorderThreshold;
-    }
-    
-    public void setReorderThreshold(Integer reorderThreshold) {
-        this.reorderThreshold = reorderThreshold;
-    }
-    
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
-     public Long getId() {
-        return id;
-    }
-    
-    public void setId(Long id) {
-        this.id = id;
+
+    @PrePersist
+    @PreUpdate
+    public void updateTimestamp() {
+        this.lastUpdated = LocalDateTime.now();
     }
 }

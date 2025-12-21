@@ -10,20 +10,19 @@ import java.util.List;
 @RequestMapping("/api/stock-records")
 public class StockRecordController {
 
-    private final StockRecordService service;
+    private final StockRecordService stockRecordService;
 
-    public StockRecordController(StockRecordService service) {
-        this.service = service;
+    public StockRecordController(StockRecordService stockRecordService) {
+        this.stockRecordService = stockRecordService;
     }
 
     @PostMapping
-    public StockRecord createStockRecord(
-            @RequestBody StockRecord stockRecord) {
-        return service.createStockRecord(stockRecord);
+    public StockRecord create(@RequestBody StockRecord record) {
+        return stockRecordService.createStockRecord(record);
     }
 
     @GetMapping
-    public List<StockRecord> getAllStockRecords() {
-        return service.getAllStockRecords();
+    public List<StockRecord> getAll() {
+        return stockRecordService.getAllStockRecords();
     }
 }
