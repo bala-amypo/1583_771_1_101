@@ -6,6 +6,8 @@ import com.example.demo.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import jakarta.persistence.EntityNotFoundException;
+
 
 import java.util.List;
 
@@ -20,11 +22,12 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
-    @Override
-    public Product getProductById(Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
-    }
+   @Override
+public Product getProductById(Long id) {
+    return productRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Product not found with id " + id));
+}
+
 
     @Override
     public List<Product> getAllProducts() {
