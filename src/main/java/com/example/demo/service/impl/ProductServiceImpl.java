@@ -27,12 +27,12 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-    @Override
-    public Product getProductById(Long id) {
-        return productRepository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Product", id));
-    }
+   @Override
+public Product getProductById(Long id) {
+    return productRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
+}
+
 
     @Override
     public void deleteProduct(Long id) {
