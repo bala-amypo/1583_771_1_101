@@ -29,15 +29,9 @@ public class Product {
     private double price;
 
     private LocalDateTime createdAt;
-    public String getProductName() {
-        return productName;
-    }
-    
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-    
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = LocalDateTime.now();
     }
 }

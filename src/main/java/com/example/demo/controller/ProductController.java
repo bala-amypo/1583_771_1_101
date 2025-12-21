@@ -17,9 +17,11 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public Product createProduct(@RequestBody Product product) {
-        return productService.createProduct(product);
-    }
+public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+    Product savedProduct = productService.createProduct(product);
+    return ResponseEntity.ok(savedProduct);
+}
+
 
     @GetMapping
     public List<Product> getAllProducts() {
