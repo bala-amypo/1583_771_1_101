@@ -7,5 +7,6 @@ public interface PredictionRuleService {
      * @param productId the product ID
      * @return predicted restock date as String
      */
+   
     String predictionRestockDate(Long productId);
 }

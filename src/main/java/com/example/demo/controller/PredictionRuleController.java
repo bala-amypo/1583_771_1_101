@@ -7,6 +7,8 @@ import com.example.demo.service.PredictionRuleService;
 @RestController
 @RequestMapping("/api/prediction")
 public class PredictionRuleController {
+@Autowired
+private PredictionRuleService predictionRuleService;
 
     @Autowired
     private PredictionRuleService service;
