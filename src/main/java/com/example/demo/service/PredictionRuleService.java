@@ -4,7 +4,7 @@ import com.example.demo.model.PredictionRule;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface PredictionService {
+public interface PredictionRuleService {
 
     LocalDate predictRestockDate(Long stockRecordId);
 
