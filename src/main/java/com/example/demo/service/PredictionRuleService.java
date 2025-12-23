@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PredictionRuleService {
 
-    LocalDate predictRestockDate(Long stockRecordId);
+    LocalDate predictionRestockDate(Long stockRecordId);
 
     List<PredictionRule> getAllRules();
 
