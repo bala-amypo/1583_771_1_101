@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PredictionServiceImpl implements PredictionService {
+public class PredictionRuleServiceImpl implements PredictionRuleService {
 
     @Override
     public LocalDate predictRestockDate(Long stockRecordId) {
-        // dummy implementation for now
+       
         return LocalDate.now().plusDays(7);
     }
 
