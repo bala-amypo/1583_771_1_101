@@ -18,12 +18,12 @@ public class StockRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // MANY stock records can belong to ONE product
+    
     @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    // MANY stock records can belong to ONE warehouse
+    
     @ManyToOne
     @JoinColumn(name = "warehouse_id", nullable = false)
     private Warehouse warehouse;
