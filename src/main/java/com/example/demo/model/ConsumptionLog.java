@@ -1,46 +1,26 @@
 package com.example.demo.model;
+
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.time.LocalDateTime;  
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "consumption_log")
+@Table(name = "consumption_logs")
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ConsumptionLog {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long productId;
-    private int quantity;
-    private LocalDateTime consumedAt;
 
-    public Long getId() {
-        return id;
-    }
+    @ManyToOne
+    private StockRecord stockRecord;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    private Integer consumedQuantity;
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public LocalDateTime getConsumedAt() {
-        return consumedAt;
-    }
-
-    public void setConsumedAt(LocalDateTime consumedAt) {
-        this.consumedAt = consumedAt;
-    }
+    private LocalDate consumedDate;
 }
