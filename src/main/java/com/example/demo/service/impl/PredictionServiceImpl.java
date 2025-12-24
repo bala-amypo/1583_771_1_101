@@ -1,10 +1,10 @@
 package com.example.demo.service.impl;
 
 import org.springframework.stereotype.Service;
-import com.example.demo.service.PredictionRuleService;
+import com.example.demo.service.PredictionService;
 
 @Service
-public class PredictionRuleServiceImpl implements PredictionRuleService {
+public class PredictionServiceImpl implements PredictionService {
 
     @Override
     public String predictionRestockDate(Long productId) {
