@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "prediction_rules")
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -21,7 +22,9 @@ public class PredictionRule {
     private String ruleName;
 
     private Integer averageDaysWindow;
+
     private Integer minDailyUsage;
+
     private Integer maxDailyUsage;
 
     private LocalDateTime createdAt;
