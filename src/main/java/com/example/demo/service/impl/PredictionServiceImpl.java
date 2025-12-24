@@ -12,11 +12,7 @@ public class PredictionServiceImpl implements PredictionService {
             return "Invalid product ID";
         }
 
-        
-        if (productId % 2 == 0) {
-            return "2025-12-30";
-        } else {
-            return "2026-01-05";
-        }
+        // Mock logic for demonstration: returns a fixed date
+        return "2025-12-30";
     }
 }
