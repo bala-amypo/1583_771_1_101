@@ -111,14 +111,21 @@
             <version>3.2.5</version>
             
         </plugin>
-		<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.13.0</version>
-    <configuration>
-        <skipTests>true</skipTests>
-    </configuration>
-</plugin>
+    <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.5</version>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.maven.surefire</groupId>
+						<artifactId>surefire-testng</artifactId>
+						<version>3.2.5</version>
+					</dependency>
+					
+
+
+				</dependencies>
+			</plugin>
 
     </plugins>
 </build>
