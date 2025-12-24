@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/stock-records")
+@RequestMapping("/api/stocks")
 public class StockRecordController {
 
     private final StockRecordService stockRecordService;
@@ -16,13 +16,25 @@ public class StockRecordController {
         this.stockRecordService = stockRecordService;
     }
 
-    @PostMapping
-    public StockRecord create(@RequestBody StockRecord record) {
-        return stockRecordService.createStockRecord(record);
+    @PostMapping("/{productId}/{warehouseId}")
+    public StockRecord create(@PathVariable Long productId,
+                              @PathVariable Long warehouseId,
+                              @RequestBody StockRecord record) {
+        return stockRecordService.createStockRecord(productId, warehouseId, record);
     }
 
-    @GetMapping
-    public List<StockRecord> getAll() {
-        return stockRecordService.getAllStockRecords();
+    @GetMapping("/product/{productId}")
+    public List<StockRecord> byProduct(@PathVariable Long productId) {
+        return stockRecordService.getRecordsBy_product(productId);
+    }
+
+    @GetMapping("/warehouse/{warehouseId}")
+    public List<StockRecord> byWarehouse(@PathVariable Long warehouseId) {
+        return stockRecordService.getRecordsByWarehouse(warehouseId);
+    }
+
+    @GetMapping("/{id}")
+    public StockRecord get(@PathVariable Long id) {
+        return stockRecordService.getStockRecord(id);
     }
 }
