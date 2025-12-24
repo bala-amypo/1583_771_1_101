@@ -10,7 +10,7 @@ import com.example.demo.service.PredictionService;
 public class PredictionController {
 
     @Autowired
-    private Predictionervice predictionService;
+    private PredictionService predictionService;
 
     @GetMapping("/predict/{productId}")
     public String predictRestock(@PathVariable Long productId) {
