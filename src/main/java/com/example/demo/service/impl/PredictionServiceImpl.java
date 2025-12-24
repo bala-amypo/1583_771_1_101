@@ -8,11 +8,15 @@ public class PredictionServiceImpl implements PredictionService {
 
     @Override
     public String predictionRestockDate(Long productId) {
-        if (productId == null) {
+        if (productId == null || productId <= 0) {
             return "Invalid product ID";
         }
 
         
-        return "2025-12-30";
+        if (productId % 2 == 0) {
+            return "2025-12-30";
+        } else {
+            return "2026-01-05";
+        }
     }
 }
