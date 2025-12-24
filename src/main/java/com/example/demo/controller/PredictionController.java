@@ -1,23 +1,19 @@
 package com.example.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import com.example.demo.service.PredictionService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+import com.example.demo.service.PredictionRuleService;
 
 @RestController
-@RequestMapping("/prediction")
 public class PredictionController {
 
     @Autowired
-    private PredictionService predictionService;
+    private PredictionRuleService predictionRuleService;
 
-    @GetMapping("/restock/{productId}")
-    public ResponseEntity<String> predictionRestockDate(
-            @PathVariable Long productId) {
-
-        String result = predictionService.predictionRestockDate(productId);
-        return ResponseEntity.ok(result);
+    @GetMapping("/predict/{productId}")
+    public String predictRestock(@PathVariable Long productId) {
+        return predictionRuleService.predictionRestockDate(productId);
     }
 }
