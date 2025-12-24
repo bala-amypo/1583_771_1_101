@@ -3,15 +3,22 @@ package com.example.demo.config;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtProvider {
 
-    private final String jwtSecret = "secretKey"; // change this in production
+    private final String jwtSecret = "secretKey"; // change in production
     private final long jwtExpirationMs = 86400000; // 1 day
+
+    private Key getSigningKey() {
+        // Generates a signing key from the secret
+        return Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    }
 
     // Generate token
     public String generateToken(String username) {
@@ -19,14 +26,15 @@ public class JwtProvider {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(new Date().getTime() + jwtExpirationMs))
-                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .signWith(getSigningKey(), SignatureAlgorithm.HS512)
                 .compact();
     }
 
-    // ✅ This method must exist exactly like this
+    // Get username from token
     public String getUsernameFromToken(String token) {
-        Claims claims = Jwts.parser()
-                .setSigningKey(jwtSecret)
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
         return claims.getSubject();
@@ -35,7 +43,10 @@ public class JwtProvider {
     // Validate token
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
+            Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
