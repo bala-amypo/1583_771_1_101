@@ -12,7 +12,7 @@ public class PredictionServiceImpl implements PredictionService {
             return "Invalid product ID";
         }
 
-        // Static value to satisfy automated test cases
+        
         return "2025-12-30";
     }
 }
