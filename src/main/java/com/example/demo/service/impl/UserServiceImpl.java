@@ -74,14 +74,12 @@ public class UserServiceImpl implements UserService {
                 "roles", user.getRoles().stream().map(Enum::name).toList()
         );
 
-        String token = jwtUtil.createToken(claims, user.getEmail());
+        String token = jwtUtil.generateToken(
+        user.getEmail(),
+        user.getId(),
+        user.getRoles().stream().map(Enum::name).collect(Collectors.toSet())
+);
 
-        return new AuthResponse(
-                token,
-                user.getId(),
-                user.getEmail(),
-                user.getRoles().stream().map(Enum::name).collect(Collectors.toSet())
-        );
     }
 
     @Override
