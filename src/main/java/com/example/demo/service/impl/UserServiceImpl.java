@@ -8,10 +8,12 @@ import com.example.demo.model.Role;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
+import com.example.demo.util.JwtUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -20,11 +22,14 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
 
     public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+                           PasswordEncoder passwordEncoder,
+                           JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     @Override
@@ -64,8 +69,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
+        Map<String, Object> claims = Map.of(
+                "userId", user.getId(),
+                "roles", user.getRoles().stream().map(Enum::name).toList()
+        );
+
+        String token = jwtUtil.createToken(claims, user.getEmail());
+
         return new AuthResponse(
-                "dummy-token",
+                token,
                 user.getId(),
                 user.getEmail(),
                 user.getRoles().stream().map(Enum::name).collect(Collectors.toSet())

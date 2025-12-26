@@ -17,33 +17,24 @@ import java.util.function.Function;
 public class JwtUtil {
 
     @Value("${jwt.secret}")
-    private String secret;
+    private String secret; // e.g., "mySuperSecretKeyForJwtToken12345"
 
     @Value("${jwt.expiration}")
-    private Long expiration; // in milliseconds
+    private Long expiration; // e.g., 1000 * 60 * 60 * 10 (10 hours)
 
-    // Key used for signing JWT
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    // Extract username/email
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    // Extract expiration date
-    public Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
-
-    // Extract any claim
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    // Parse token and get all claims
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -52,12 +43,15 @@ public class JwtUtil {
                 .getBody();
     }
 
-    // Check if token is expired
-    private Boolean isTokenExpired(String token) {
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
+    private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    // Generate token with custom claims
+    // Public method to create token
     public String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
@@ -68,8 +62,7 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Validate token for a given username
-    public Boolean validateToken(String token, String username) {
+    public boolean validateToken(String token, String username) {
         final String extractedUsername = extractUsername(token);
         return (extractedUsername.equals(username) && !isTokenExpired(token));
     }
