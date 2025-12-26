@@ -65,6 +65,11 @@ public class JwtProvider {
     public String getUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
+   
+public String getEmailFromToken(String token) {
+    return getUsername(token);
+}
+
 
     public Long getUserId(String token) {
         Object id = extractAllClaims(token).get("userId");
