@@ -17,10 +17,10 @@ import java.util.function.Function;
 public class JwtUtil {
 
     @Value("${jwt.secret}")
-    private String secret; // e.g., "mySuperSecretKeyForJwtToken12345"
+    private String secret; 
 
     @Value("${jwt.expiration}")
-    private Long expiration; // e.g., 1000 * 60 * 60 * 10 (10 hours)
+    private Long expiration; 
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
