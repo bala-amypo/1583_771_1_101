@@ -22,12 +22,12 @@ public class JwtUtil {
     @Value("${jwt.expiration}")
     private Long expiration; // in milliseconds
 
-    // Convert secret string to SecretKey
+    // Key used for signing JWT
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    // Extract username (subject) from JWT
+    // Extract username/email
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
@@ -37,13 +37,13 @@ public class JwtUtil {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    // Generic method to extract any claim
+    // Extract any claim
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    // Parse JWT and get all claims
+    // Parse token and get all claims
     private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey())
@@ -53,28 +53,23 @@ public class JwtUtil {
     }
 
     // Check if token is expired
-    private boolean isTokenExpired(String token) {
+    private Boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    // Generate token with claims
-    public String generateToken(String username, Map<String, Object> claims) {
+    // Generate token with custom claims
+    public String createToken(Map<String, Object> claims, String subject) {
         return Jwts.builder()
                 .setClaims(claims)
-                .setSubject(username)
-                .setIssuedAt(new Date())
+                .setSubject(subject)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    // Overload: generate token without extra claims
-    public String generateToken(String username) {
-        return generateToken(username, Map.of());
-    }
-
-    // Validate token
-    public boolean validateToken(String token, String username) {
+    // Validate token for a given username
+    public Boolean validateToken(String token, String username) {
         final String extractedUsername = extractUsername(token);
         return (extractedUsername.equals(username) && !isTokenExpired(token));
     }
