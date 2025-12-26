@@ -16,30 +16,36 @@ public class JwtProvider {
         this.jwtUtil = jwtUtil;
     }
 
-    // ✅ Generate token
+    // Generate token
     public String generateToken(String email, Long userId, Set<String> roles) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
         claims.put("roles", roles);
-
-        return jwtUtil.generateToken(claims, email);
+        return jwtUtil.createToken(claims, email);
     }
 
+    // ✅ REQUIRED BY TESTS (single-arg)
+    public boolean validateToken(String token) {
+        String email = getEmailFromToken(token);
+        return jwtUtil.validateToken(token, email);
+    }
+
+    // Optional (used internally)
+    public boolean validateToken(String token, String email) {
+        return jwtUtil.validateToken(token, email);
+    }
+
+    // Extract email
     public String getEmailFromToken(String token) {
         return jwtUtil.extractUsername(token);
     }
 
-    public Long getUserIdFromToken(String token) {
-        Object id = jwtUtil.extractClaim(token, c -> c.get("userId"));
-        return Long.valueOf(id.toString());
-    }
-
-    @SuppressWarnings("unchecked")
-    public Set<String> getRolesFromToken(String token) {
-        return (Set<String>) jwtUtil.extractClaim(token, c -> c.get("roles"));
-    }
-
-    public boolean validateToken(String token, String email) {
-        return jwtUtil.validateToken(token, email);
+    // ✅ REQUIRED BY TESTS
+    public Long getUserId(String token) {
+        Object id = jwtUtil.extractClaim(token, claims -> claims.get("userId"));
+        if (id instanceof Integer) {
+            return ((Integer) id).longValue();
+        }
+        return (Long) id;
     }
 }
