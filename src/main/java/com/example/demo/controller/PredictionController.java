@@ -3,12 +3,15 @@ package com.example.demo.controller;
 import com.example.demo.model.PredictionRule;
 import com.example.demo.service.PredictionService;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 
 import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/predict")
+@SecurityRequirement(name="bearerAuth")
 public class PredictionController {
 
     private final PredictionService predictionService;

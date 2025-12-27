@@ -3,11 +3,14 @@ package com.example.demo.controller;
 import com.example.demo.model.StockRecord;
 import com.example.demo.service.StockRecordService;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/stocks")
+@SecurityRequirement(name="bearerAuth")
 public class StockRecordController {
 
     private final StockRecordService stockRecordService;

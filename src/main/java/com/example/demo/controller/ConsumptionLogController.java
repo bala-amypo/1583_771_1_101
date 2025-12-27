@@ -3,6 +3,8 @@ package com.example.demo.controller;
 import com.example.demo.model.ConsumptionLog;
 import com.example.demo.service.ConsumptionLogService;
 import org.springframework.web.bind.annotation.*;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 
 import java.util.List;
 
