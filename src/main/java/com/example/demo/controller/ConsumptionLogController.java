@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/consumption")
+@SecurityRequire
 public class ConsumptionLogController {
 
     private final ConsumptionLogService consumptionLogService;
