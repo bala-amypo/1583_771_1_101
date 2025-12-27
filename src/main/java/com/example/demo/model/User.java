@@ -15,19 +15,20 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+            private Long id;
 
-    private String name;
+                private String name;
 
-    @Column(unique = true)
-    private String email;
+                    @Column(unique = true)
+                        private String email;
 
-    private String password;
+                            private String password;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
+                                @ElementCollection(fetch = FetchType.EAGER)
+                                    @Enumerated(EnumType.STRING)
+                                        private Set<Role> roles;
 
-    private LocalDateTime createdAt;
-}
+                                            private LocalDateTime createdAt;
+                                            }
+                                            
