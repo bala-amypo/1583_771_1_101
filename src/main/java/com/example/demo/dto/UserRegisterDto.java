@@ -15,22 +15,35 @@
 // }
 package com.example.demo.dto;
 
+import java.util.Set;
+
 public class UserRegisterDto {
-    
+
+    private String name; // if you are using getName()
     private String username;
     private String email;
     private String password;
+    private Set<String> roles; // if getRoles() is used
 
     // Constructors
     public UserRegisterDto() {}
-    
-    public UserRegisterDto(String username, String email, String password) {
+
+    public UserRegisterDto(String name, String username, String email, String password, Set<String> roles) {
+        this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 
     // Getters and Setters
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -50,5 +63,12 @@ public class UserRegisterDto {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 }
