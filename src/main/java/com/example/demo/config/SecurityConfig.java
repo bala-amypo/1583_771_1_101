@@ -122,20 +122,18 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http
-            // Disable CSRF
+           
             .csrf(csrf -> csrf.disable())
             
-            // Stateless session (not strictly needed if no JWT)
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
             
-            // Authorization rules
             .authorizeHttpRequests(auth -> auth
-                // Auth endpoints
+                
                 .requestMatchers("/auth-controller/**").permitAll()
                 
-                // Swagger endpoints
+               
                 .requestMatchers(
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
@@ -143,7 +141,7 @@ public class SecurityConfig {
                     "/webjars/**"
                 ).permitAll()
                 
-                // All other endpoints are public
+                
                 .anyRequest().permitAll()
             );
 
